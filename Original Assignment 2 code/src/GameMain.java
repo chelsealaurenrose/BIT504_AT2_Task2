@@ -6,10 +6,10 @@ import javax.swing.*;
 
 public class GameMain extends JPanel implements MouseListener{
 	//Constants for game 
-	// number of ROWS by COLS cell constants 
+	// number of ROWS by COLS cell constants (defines number of rows and columns in the grid)
 	public static final int ROWS = 3;     
 	public static final int COLS = 3;  
-	public static final String TITLE = "Tic Tac Toe";
+	public static final String TITLE = "Tic Tac Toe"; //title for the game window
 
 	//constants for dimensions used for drawing
 	//cell width and height
@@ -26,7 +26,7 @@ public class GameMain extends JPanel implements MouseListener{
 	// the game board 
 	private Originalboard originalboard;
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
+	//DONE: create the enumeration for the variable below (GameState currentState)
 	//HINT all of the states you require are shown in the code within GameMain
 	private GameState currentState; 
 	
@@ -39,8 +39,8 @@ public class GameMain extends JPanel implements MouseListener{
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+		// DONE: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
+	    addMouseListener(this); 
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -56,10 +56,12 @@ public class GameMain extends JPanel implements MouseListener{
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
 		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-
+		// DONE: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
+		board = new Board(); 
 		
-		//TODO: call the method to initialise the game board
+		//DONE: call the method to initialise the game board
+		
+		initGame(); 
 
 	}
 	
