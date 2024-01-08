@@ -24,7 +24,7 @@ public class GameMain extends JPanel implements MouseListener{
 	
 	/*declare game object variables*/
 	// the game board 
-	private Originalboard originalboard;
+	private Board board;
 	 	 
 	//DONE: create the enumeration for the variable below (GameState currentState)
 	//HINT all of the states you require are shown in the code within GameMain
@@ -91,21 +91,20 @@ public class GameMain extends JPanel implements MouseListener{
 		super.paintComponent(g);
 		setBackground(Color.WHITE);
 		//ask the game board to paint itself
-		originalboard.paint(g);
+		board.paint(g);
 		
-		//set status bar message
+		//set status bar message. Displays status message according to GameState and Player. 
+		//also changes colour of status bar text according to the current Game State. 
 		if (currentState == GameState.Playing) {          
 			statusBar.setForeground(Color.BLACK);          
 			if (currentPlayer == Player.Cross) {   
 			
-				//TODO: use the status bar to display the message "X"'s Turn
-
-				
+				//DONE: use the status bar to display the message "X"'s Turn
+				statusBar.setText("X's turn. "); 				
 			} else {    
 				
-				//TODO: use the status bar to display the message "O"'s Turn
-
-				
+				//DONE: use the status bar to display the message "O"'s Turn
+				statusBar.setText("O's turn. "); 			
 			}       
 			} else if (currentState == GameState.Draw) {          
 				statusBar.setForeground(Color.RED);          
@@ -120,12 +119,13 @@ public class GameMain extends JPanel implements MouseListener{
 		}
 		
 	
-	  /** Initialise the game-board contents and the current status of GameState and Player) */
+	  /** Initialise the game-board contents and the current status of GameState and Player) 
+	   * First player == Cross*/
 		public void initGame() {
 			for (int row = 0; row < ROWS; ++row) {          
 				for (int col = 0; col < COLS; ++col) {  
 					// all cells empty
-					originalboard.cells[row][col].content = Player.Empty;           
+					board.cells[row][col].content = Player.Empty;           
 				}
 			}
 			 currentState = GameState.Playing;
@@ -140,16 +140,16 @@ public class GameMain extends JPanel implements MouseListener{
 		 */
 		public void updateGame(Player thePlayer, int row, int col) {
 			//check for win after play
-			if(originalboard.hasWon(thePlayer, row, col)) {
+			if(board.hasWon(thePlayer, row, col)) {
 				
-				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
+				// DONE: check which player has won and update the currentstate to the appropriate gamestate for the winner
+				
 
 				
 			} else 
-				if (originalboard.isDraw ()) {
-					
-				// TODO: set the currentstate to the draw gamestate
-
+				if (board.isDraw ()) {
+				// DONE: set the currentstate to the draw gamestate
+					currentState = GameState.Draw;
 			}
 			//otherwise no change to current state of playing
 		}
@@ -168,9 +168,9 @@ public class GameMain extends JPanel implements MouseListener{
 		int rowSelected = mouseY / CELL_SIZE;             
 		int colSelected = mouseX / CELL_SIZE;               			
 		if (currentState == GameState.Playing) {                
-			if (rowSelected >= 0 && rowSelected < ROWS && colSelected >= 0 && colSelected < COLS && originalboard.cells[rowSelected][colSelected].content == Player.Empty) {
+			if (rowSelected >= 0 && rowSelected < ROWS && colSelected >= 0 && colSelected < COLS && board.cells[rowSelected][colSelected].content == Player.Empty) {
 				// move  
-				originalboard.cells[rowSelected][colSelected].content = currentPlayer; 
+				board.cells[rowSelected][colSelected].content = currentPlayer; 
 				// update currentState                  
 				updateGame(currentPlayer, rowSelected, colSelected); 
 				// Switch player
@@ -184,10 +184,9 @@ public class GameMain extends JPanel implements MouseListener{
 		} else {        
 			// game over and restart              
 			initGame();            
-		}   
-		
-		//TODO: redraw the graphics on the UI          
-           
+		}   		
+		//DONE: redraw the graphics on the UI  
+		repaint();          
 	}
 		
 	
