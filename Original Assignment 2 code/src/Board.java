@@ -47,19 +47,20 @@ public class Board {
 		if(cells[playerRow][0].content == thePlayer && cells[playerRow][1].content == thePlayer && cells[playerRow][2].content == thePlayer )
 			return true; 
 		
-		 // TODO: Check if the player has 3 in the playerCol.
+		 // DONE: Check if the player has 3 in the playerCol.
 		 // Hint: Use the row code above as a starting point, remember that it goes cells[row][column] 
-		
+		if(cells[0][playerCol].content == thePlayer && cells[1][playerCol].content == thePlayer && cells[2][playerCol].content == thePlayer )
+			return true; 
 		
 		
 		 // 3-in-the-diagonal
 		if( cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer)
 			return true;
-		 
+		 	
+		// DONE: Check the diagonal in the other direction
 		
-		// TODO: Check the diagonal in the other direction
-		
-
+		if( cells[0][2].content == thePlayer && cells[1][1].content == thePlayer && cells[2][0].content == thePlayer)
+			return true;
 		
 		//no winner, keep playing
 		return false;
